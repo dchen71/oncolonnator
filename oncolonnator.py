@@ -8,12 +8,7 @@ import requests
 import json
 import os
 
-# Function to do basic vcf manipulations
-## https://pyvcf.readthedocs.io/en/latest/INTRO.html
-## https://samtools.github.io/hts-specs/VCFv4.2.pdf
 
-## goal 1 - move vcf file into pandas data frame
-## goal 2 - parse out all releveant columns as list or dict for pandas
 ## goal 3 - get exac database api going and annotate relevant things for each entry
 ### /rest/variant/{chrome}-{pos}-{ref}-{var}
 #### variant.allele_freq
@@ -27,6 +22,27 @@ import os
 ## goal 6 - do some unit testing
 ## goal 7 - update documentation
 ## goal 8 - docker
+
+def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt = 'C'):
+    """
+    Get variant annotation from ExAC for a given chromosome/position/ref/alt
+
+    Keyword arguments:
+    chromosome(int, string) - Chromosome of variation
+    position(int) -- Position of variation(bp)
+    ref(string) -- Reference allele ()
+    alt(string or list of strings) -- Alternative alleles
+
+    Return:
+
+    """
+    base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
+
+    # sending get request and saving the response as response object 
+    r = requests.get(url = base_url + "-".join([str(chromosome), str(position), ref, alt])) 
+      
+    # extracting data in json format 
+    data = r.json() 
 
 def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     """
