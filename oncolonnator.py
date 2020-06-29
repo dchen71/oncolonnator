@@ -42,15 +42,18 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     except:
       print("Error: Could not open input file")
 
+    # Pull CHROM, POS, REF, ALT, DP if available from input
+    vcf_metrics = [[record.CHROM, record.POS, record.REF, record.ALT, 
+        sum([sum([i.data.DP for i in record.get_hom_refs()]), 
+            sum([i.data.DP for i in record.get_hom_alts()]), 
+            sum([i.data.DP for i in record.get_hets()])])] 
+        for record in vcf_reader]
 
-    for record in vcf_reader:
-      print(record)
+    # Convert to dataframe
+    vcf_df = pd.DataFrame(vcf_metrics, columns = ['CHROM', "POS", "REF","ALT","DP"])
 
-    record.CHROM # chrom
-    record.POS # Position
-    record.REF # ref
-    record.ALT #alt allele
-    record.get_hets()[0].data.DP # Need to check if there are entries here otherwise make it NA in case
+
+
 
 # GET request API calls to ExAC
 ## https://www.geeksforgeeks.org/get-post-requests-using-python/
