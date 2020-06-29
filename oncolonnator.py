@@ -45,8 +45,11 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     if r.status_code == 404:
     	return('failure')
 
-    # extracting data in json format 
+    # Convert to json
     data = r.json() 
+
+    # Get relevant information
+    allele_freq = data['variant']['allele_freq']
 
 def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     """
@@ -66,11 +69,13 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     vcf_metrics = [[record.CHROM, record.POS, record.REF, record.ALT, 
         sum([sum([i.data.DP for i in record.get_hom_refs()]), 
             sum([i.data.DP for i in record.get_hom_alts()]), 
-            sum([i.data.DP for i in record.get_hets()])])] 
+            sum([i.data.DP for i in record.get_hets()])]),
+        sum([i.data.DP for i in record.get_hom_alts()])] 
         for record in vcf_reader]
 
     # Convert to dataframe
-    vcf_df = pd.DataFrame(vcf_metrics, columns = ['CHROM', "POS", "REF","ALT","DP"])
+    vcf_df = pd.DataFrame(vcf_metrics, columns = ['CHROMOSOME', "POSITION", "REF_ALLELE","ALT_ALLELE","TOTAL_DEPTH", "ALT_DEPTH"])
+    vcf_df["ALT_PERCENTAGE"] = vcf_df["ALT_DEPTH"]/vcf_df["TOTAL_DEPTH"] * 100 # Get percentage of alternative depth / total depth for percentage of supporrt of variant
 
 
 
