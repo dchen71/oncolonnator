@@ -9,6 +9,7 @@ verify_ssl = true
 pytest = "*"
 pyvcf = "*"
 requests = "*"
+argparse = "*"
 
 [requires]
 python_version = "3.7"
