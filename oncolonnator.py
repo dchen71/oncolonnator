@@ -38,9 +38,13 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     """
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
 
-    # sending get request and saving the response as response object 
+    # Get request to Variant API
     r = requests.get(url = base_url + "-".join([str(chromosome), str(position), ref, alt])) 
-      
+    
+    # Check for 404 failed endpoint and on failure
+    if r.status_code == 404:
+    	return('failure')
+
     # extracting data in json format 
     data = r.json() 
 
