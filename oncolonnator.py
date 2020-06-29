@@ -75,7 +75,7 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
 
     # Convert to dataframe
     vcf_df = pd.DataFrame(vcf_metrics, columns = ['CHROMOSOME', "POSITION", "REF_ALLELE","ALT_ALLELE","TOTAL_DEPTH", "ALT_DEPTH"])
-    vcf_df["ALT_PERCENTAGE"] = vcf_df["ALT_DEPTH"]/vcf_df["TOTAL_DEPTH"] * 100 # Get percentage of alternative depth / total depth for percentage of supporrt of variant
+    vcf_df["ALT_PERCENTAGE"] = vcf_df["ALT_DEPTH"]/vcf_df["TOTAL_DEPTH"] * 100.0 # Get percentage of alternative depth / total depth for percentage of supporrt of variant
 
 
 
