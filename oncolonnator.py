@@ -38,19 +38,21 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     """
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
 
+    # Type checkalternate allele for looping
     if isinstance(alt, str):
     	pass
     elif isinstance(alt, list):
-    	pass
+        for alternate_allele in alt:
+            pass
     else:
-    	raise Exception("Alternative Allele not string or list")
+        raise Exception("Alternative Allele not string or list")
 
     # Get request to Variant API
     r = requests.get(url = base_url + "-".join([str(chromosome), str(position), ref, alt])) 
     
     # Check for 404 failed endpoint and on failure
     if r.status_code == 404:
-    	return('failure') # Silent error
+        return('failure') # Silent error
 
     # Convert response to json
     data = r.json() 
