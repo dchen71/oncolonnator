@@ -36,17 +36,23 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     Return:
 
     """
-    base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
+    
 
-    # Type checkalternate allele for looping
+    # Type check alternate allele for looping
     if isinstance(alt, str):
-    	pass
+        annotation = get_exac_variant(chromosome, position, ref, alt)
     elif isinstance(alt, list):
+        annotation = []
         for alternate_allele in alt:
-            pass
+            annotation.append(get_exac_variant(chromosome, position, ref, alt))
     else:
-        raise Exception("Alternative Allele not string or list")
+        raise Exception("Alternative Allele not string or list") # Total failure on weird input
 
+    return(annotation)
+
+def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C'):
+    base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
+    
     # Get request to Variant API
     r = requests.get(url = base_url + "-".join([str(chromosome), str(position), ref, alt])) 
     
@@ -58,12 +64,21 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     data = r.json() 
 
     # Get relevant information
-    allele_freq = data['variant']['allele_freq']
-    variant_consequences = list(data['consequence']) # List of ExAC consequences for variant
-    genes = data['variant']['genes']
+    try:
+      allele_freq = data['variant']['allele_freq']
+    except:
+      allele_freq = None
+    variant_consequences = list(data['consequence']) if data['consequence'] is not None else None # List of ExAC consequences for variant
+    try:
+        genes = data['variant']['genes']
+    except:
+    	genes = None
     transcripts = data['variant']['transcripts']
 
+    return([allele_freq, variant_consequences, genes, transcripts])
+    
     # Calculate the worst consequence
+
 
 
 def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
