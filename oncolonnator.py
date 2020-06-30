@@ -38,18 +38,31 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     """
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
 
+    if isinstance(alt, str):
+    	pass
+    elif isinstance(alt, list):
+    	pass
+    else:
+    	raise Exception("Alternative Allele not string or list")
+
     # Get request to Variant API
     r = requests.get(url = base_url + "-".join([str(chromosome), str(position), ref, alt])) 
     
     # Check for 404 failed endpoint and on failure
     if r.status_code == 404:
-    	return('failure')
+    	return('failure') # Silent error
 
-    # Convert to json
+    # Convert response to json
     data = r.json() 
 
     # Get relevant information
     allele_freq = data['variant']['allele_freq']
+    variant_consequences = list(data['consequence']) # List of ExAC consequences for variant
+    genes = data['variant']['genes']
+    transcripts = data['variant']['transcripts']
+
+    # Calculate the worst consequence
+
 
 def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     """
