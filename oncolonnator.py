@@ -51,6 +51,15 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     return(annotation)
 
 def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C'):
+    """
+    Pulls variant information from ExAC based on given chromosome, base pair starting position, reference allele and alternate allele
+
+    Keyword arguments:
+    chromosome(int, string) - Chromosome of variation
+    position(int) -- Position of variation(bp)
+    ref(string) -- Reference allele ()
+    alt(string or list of strings) -- Alternative alleles
+    """
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
     
     # Get request to Variant API
