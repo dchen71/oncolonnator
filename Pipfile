@@ -6,11 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pytest = "*"
-pyvcf = "*"
-requests = "*"
-argparse = "*"
-pandas = "*"
+pytest = "==5.4.3"
+pyvcf = "==0.6.8"
+requests = "==2.24.0"
+argparse = "==1.4.0"
+pandas = "==1.0.5"
 
 [requires]
 python_version = "3.7"
