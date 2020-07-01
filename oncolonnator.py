@@ -124,7 +124,7 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     try:
       vcf_reader = vcf.Reader(open(input_vcf, 'r'))
     except:
-      print("Error: Could not open input file")
+      raise Exception("Error: Could not open input file")
 
     # TODO - Cache results based on if same input
 
