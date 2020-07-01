@@ -109,11 +109,14 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     input_vcf(str) -- The path to the VCF file to annotate (default None)
     output_file(str) -- The directory and file name to output a csv to (default output/parsed.csv)
     """
+    print("Progress 0%: Reading VCF file")
     # Read input or error out
     try:
       vcf_reader = vcf.Reader(open(input_vcf, 'r'))
     except:
       print("Error: Could not open input file")
+
+    print("Progress 10%: Parsing VCF File")
 
     # Pull CHROM, POS, REF, ALT, DP if available from input
     vcf_metrics = [[record.CHROM, record.POS, record.REF, record.ALT, 
@@ -127,6 +130,8 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     vcf_df = pd.DataFrame(vcf_metrics, columns = ['CHROMOSOME', "POSITION", "REF_ALLELE","ALT_ALLELE","TOTAL_DEPTH", "ALT_DEPTH"])
     vcf_df["ALT_PERCENTAGE"] = vcf_df["ALT_DEPTH"]/vcf_df["TOTAL_DEPTH"] * 100.0 # Get percentage of alternative depth / total depth for percentage of supporrt of variant
 
+    print("Progress 30%: Annotating VCF from ExAC")
+
     # Get annotations from ExAC
     annotations = []
     for row in vcf_df.itertuples():
@@ -138,7 +143,14 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     vcf_df['GENES'] = [i[0][2] for i in z] # Potential gene location
     vcf_df['TRANSCRIPTS'] = [i[0][3] for i in z] # Potential variant transcripts
 
+    print("Progress 90%: Saving file")
 
+    vcf.to_csv(output_file)
+
+    dir = os.path.dirname(__file__)
+    output_path = os.path.join(dir, output_file)
+
+    print("Progress 100% - File saved at " + output_path)
 
 
 
