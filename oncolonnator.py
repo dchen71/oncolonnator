@@ -164,4 +164,4 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
 
 
 if __name__ == "__main__":
-    annotate_vcfs(input_vcf = "input/example.vcf", output_file = "output/parsed.csv")
+    annotate_vcfs(input_vcf = args.input, output_file = args.output)
