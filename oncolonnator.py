@@ -127,6 +127,18 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     vcf_df = pd.DataFrame(vcf_metrics, columns = ['CHROMOSOME', "POSITION", "REF_ALLELE","ALT_ALLELE","TOTAL_DEPTH", "ALT_DEPTH"])
     vcf_df["ALT_PERCENTAGE"] = vcf_df["ALT_DEPTH"]/vcf_df["TOTAL_DEPTH"] * 100.0 # Get percentage of alternative depth / total depth for percentage of supporrt of variant
 
+    # Get annotations from ExAC
+    annotations = []
+    for row in vcf_df.itertuples():
+      annotations.append(get_variant_annotation(row[1], row[2], row[3], row[4]))
+
+    # Update dataframe with annotations
+    vcf_df['ALLELE_FREQ'] = [i[0][0] for i in z] # Allele frequency
+    vcf_df['WORST_CONSEQUENCE'] = [i[0][1] for i in z] # Worst SNP consequence
+    vcf_df['GENES'] = [i[0][2] for i in z] # Potential gene location
+    vcf_df['TRANSCRIPTS'] = [i[0][3] for i in z] # Potential variant transcripts
+
+
 
 
 
