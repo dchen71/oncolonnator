@@ -30,7 +30,7 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     Keyword arguments:
     chromosome(int, string) - Chromosome of variation
     position(int) -- Position of variation(bp)
-    ref(string) -- Reference allele ()
+    ref(string) -- Reference allele
     alt(string or list of strings) -- Alternative alleles
 
     Return:
@@ -44,7 +44,7 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     elif isinstance(alt, list):
         annotation = []
         for alternate_allele in alt:
-            annotation.append(get_exac_variant(chromosome, position, ref, alt))
+            annotation.append(get_exac_variant(chromosome, position, ref, alternate_allele))
     else:
         raise Exception("Alternative Allele not string or list") # Total failure on weird input
 
@@ -57,7 +57,7 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
     Keyword arguments:
     chromosome(int, string) - Chromosome of variation
     position(int) -- Position of variation(bp)
-    ref(string) -- Reference allele ()
+    ref(string) -- Reference allele
     alt(string or list of strings) -- Alternative alleles
     """
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
