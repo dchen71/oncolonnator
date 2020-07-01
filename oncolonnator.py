@@ -63,7 +63,7 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
     
     # Get request to Variant API
-    r = requests.get(url = base_url + "-".join([str(chromosome), str(position), ref, alt])) 
+    r = requests.get(url = base_url + "-".join([str(chromosome), str(position), str(ref), str(alt)])) 
     
     # Check for 404 failed endpoint and on failure
     if r.status_code == 404:
