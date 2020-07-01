@@ -10,6 +10,12 @@ import os
 
 
 # TODO - Switch to argparser for inputs
+parser = argparse.ArgumentParser(description = '')
+parser.add_argument('--input', nargs='?', const='input/example.vcf', type=str, help='Path to input VCF file')
+parser.add_argument('--output', nargs='?', const='output/parsed.csv', type=str, help='foo help')
+args = parser.parse_args()
+
+
 # TODO - Switch to class based methods for VCF variants/ExAC data
 
 ## goal 6 - do some unit testing
