@@ -51,7 +51,7 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
         ## Seems like all variations of indels return nothing
         if(len(annotation) == 1):
             ## TODO - Deal with slicing error when None
-            if annotation[0][1] is not None:
+            if annotation[0] is not None and annotation[0][1] is not None and annotation[0][1]:
                 annotation[0][1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[0][1] if i is not None)]
     else:
         raise Exception("Alternative Allele not string or list") # Total failure on weird input
