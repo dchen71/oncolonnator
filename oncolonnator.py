@@ -10,7 +10,14 @@ import os
 
 
 # TODO - Switch to argparser for inputs
+parser = argparse.ArgumentParser(description = 'Annotate VCF file for ExAC Variant annotations and output a csv file at a given location')
+parser.add_argument('--input', default='input/example_input.vcf', type=str, help='Path to input VCF file')
+parser.add_argument('--output', default='output/parsed.csv', type=str, help='Path to output CSV file')
+args = parser.parse_args()
+
+
 # TODO - Switch to class based methods for VCF variants/ExAC data
+# TODO - File extension check input for vcf using os module
 
 ## goal 6 - do some unit testing
 ## goal 7 - update documentation
@@ -112,12 +119,12 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     output_file(str) -- The directory and file name to output a csv to (default output/parsed.csv)
     """
     print("Progress 0%: Reading VCF file")
-
+    
     # Read input or error out
     try:
       vcf_reader = vcf.Reader(open(input_vcf, 'r'))
     except:
-      print("Error: Could not open input file")
+      raise Exception("Error: Could not open input file")
 
     # TODO - Cache results based on if same input
 
@@ -157,4 +164,4 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
 
 
 if __name__ == "__main__":
-    annotate_vcfs(input_vcf = "input/example.vcf", output_file = "output/parsed.csv")
+    annotate_vcfs(input_vcf = args.input, output_file = args.output)
