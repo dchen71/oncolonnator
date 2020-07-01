@@ -72,8 +72,11 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
     try:
         genes = data['variant']['genes']
     except:
-    	genes = None
-    transcripts = data['variant']['transcripts']
+        genes = None
+    try:
+       transcripts = data['variant']['transcripts']
+    except:
+       transcripts = None
 
     return([allele_freq, variant_consequences, genes, transcripts])
     
@@ -86,8 +89,8 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     Parses and annotates a given vcf file using the ExAC variant database
 
     Keyword arguments: 
-    input_vcf -- The path to the VCF file to annotate (default None)
-    output_file -- The directory and file name to output a csv to (default output/parsed.csv)
+    input_vcf(str) -- The path to the VCF file to annotate (default None)
+    output_file(str) -- The directory and file name to output a csv to (default output/parsed.csv)
     """
     # Read input or error out
     try:
