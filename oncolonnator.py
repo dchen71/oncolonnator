@@ -43,9 +43,9 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
         annotation = get_exac_variant(chromosome, position, ref, alt)
 
         # TODO - Get the worst annotation out of the list
-        ## List based on synonymous, potentially damaging, deleterious
-        ranked_annotations = [None, 'synonymous_variant', 'intron_variant', 'non_coding_transcript_exon_variant', '3_prime_UTR_variant', '5_prime_UTR_variant', 'stop_retained_variant', 'splice_acceptor_variant', 
-        'splice_donor_variant', 'splice_region_variant', 'initiator_codon_variant',  'missense_variant','stop_lost', 'stop_gained']
+        ## List based on synonymous, nonsynonymous, deleterious
+        ranked_annotations = [None, 'synonymous_variant', 'intron_variant', 'non_coding_transcript_exon_variant', '3_prime_UTR_variant', '5_prime_UTR_variant', 
+        'stop_retained_variant', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'initiator_codon_variant',  'missense_variant','stop_lost', 'stop_gained']
 
         # Save the highest ranked annotation
         annotation[1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[1] if i is not None)]
@@ -56,6 +56,7 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
             annotation.append(get_exac_variant(chromosome, position, ref, alternate_allele))
 
         # TODO - use all to check for None and compress into single list for indels
+        ## Seems like all variations of indels return nothing
     else:
         raise Exception("Alternative Allele not string or list") # Total failure on weird input
 
