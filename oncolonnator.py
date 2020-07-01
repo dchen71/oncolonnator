@@ -9,9 +9,9 @@ import json
 import os
 
 
-## goal 4 - build pandas dataframe output
-### chrom pos ref alt dp freq conseq gene transcript
-## goal 5 - make output
+# TODO - Switch to argparser for inputs
+# TODO - Switch to class based methods for VCF variants/ExAC data
+
 ## goal 6 - do some unit testing
 ## goal 7 - update documentation
 ## goal 8 - docker
@@ -27,7 +27,7 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     alt(string or list of strings) -- Alternative alleles
 
     Return:
-
+    annotation(list) - List of lists of strings containing allele frequency, worst possible annotation, gene location, and potential transcripts
     """
     # List based on synonymous, nonsynonymous, deleterious
     ranked_annotations = [None, 'synonymous_variant', 'intron_variant', 'non_coding_transcript_exon_variant', '3_prime_UTR_variant', '5_prime_UTR_variant', 
@@ -67,6 +67,9 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
     position(int) -- Position of variation(bp)
     ref(string) -- Reference allele
     alt(string or list of strings) -- Alternative alleles
+
+    Return:
+    annotation(list) - List of strings containing allele frequency, worst possible annotation, gene location, and potential transcripts
     """
     base_url = "http://exac.hms.harvard.edu/rest/variant/" # Base variant ExAC API
     
@@ -79,6 +82,8 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
 
     # Convert response to json
     data = r.json() 
+
+    ## TODO - Potentially memoise and cache json based on inputs
 
     # Get relevant information
     try:
@@ -96,10 +101,6 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
        transcripts = None
 
     return([allele_freq, variant_consequences, genes, transcripts])
-    
-    # Calculate the worst consequence
-
-
 
 def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     """
@@ -153,9 +154,6 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     print("Progress 100% - File saved at " + output_path)
 
 
-
-# GET request API calls to ExAC
-## https://www.geeksforgeeks.org/get-post-requests-using-python/
 
 if __name__ == "__main__":
     annotate_vcfs(input_vcf = "input/example.vcf", output_file = "output/parsed.csv")
