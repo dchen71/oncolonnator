@@ -9,13 +9,6 @@ import json
 import os
 
 
-## goal 3 - get exac database api going and annotate relevant things for each entry
-### /rest/variant/{chrome}-{pos}-{ref}-{var}
-#### variant.allele_freq
-#### consequence - get the list of this
-##### get list and then manualy order by most deleterious and return that else None
-#### variant.genes
-#### variant.transcripts
 ## goal 4 - build pandas dataframe output
 ### chrom pos ref alt dp freq conseq gene transcript
 ## goal 5 - make output
@@ -36,27 +29,30 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     Return:
 
     """
-    
+    # List based on synonymous, nonsynonymous, deleterious
+    ranked_annotations = [None, 'synonymous_variant', 'intron_variant', 'non_coding_transcript_exon_variant', '3_prime_UTR_variant', '5_prime_UTR_variant', 
+    'stop_retained_variant', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'initiator_codon_variant',  'missense_variant','stop_lost', 'stop_gained']
 
     # Type check alternate allele for looping
     if isinstance(alt, str):
         annotation = get_exac_variant(chromosome, position, ref, alt)
 
-        # TODO - Get the worst annotation out of the list
-        ## List based on synonymous, nonsynonymous, deleterious
-        ranked_annotations = [None, 'synonymous_variant', 'intron_variant', 'non_coding_transcript_exon_variant', '3_prime_UTR_variant', '5_prime_UTR_variant', 
-        'stop_retained_variant', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'initiator_codon_variant',  'missense_variant','stop_lost', 'stop_gained']
-
         # Save the highest ranked annotation
-        annotation[1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[1] if i is not None)]
+        ## TODO - Deal with slicing error when None
+        if annotation[1] is not None:
+            annotation[1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[1] if i is not None)]
     elif isinstance(alt, list):
         annotation = []
-        # TODO - Check if rate limited API otherwise list comprehension, map or multiprocessing
+        # TODO - Check if rate limited API otherwise switch to list comprehension, map or multiprocessing
         for alternate_allele in alt:
             annotation.append(get_exac_variant(chromosome, position, ref, alternate_allele))
 
         # TODO - use all to check for None and compress into single list for indels
         ## Seems like all variations of indels return nothing
+        if(len(annotation) == 1):
+            ## TODO - Deal with slicing error when None
+            if annotation[0][1] is not None:
+                annotation[0][1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[0][1] if i is not None)]
     else:
         raise Exception("Alternative Allele not string or list") # Total failure on weird input
 
