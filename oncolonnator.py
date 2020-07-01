@@ -77,6 +77,7 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
     r = requests.get(url = base_url + "-".join([str(chromosome), str(position), str(ref), str(alt)])) 
     
     # Check for 404 failed endpoint and on failure
+    ## TODO - Better response on endpoint failure
     if r.status_code == 404:
         return('failure') # Silent error
 
