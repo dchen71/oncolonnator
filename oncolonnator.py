@@ -150,12 +150,9 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
 
     print("Progress 90%: Saving file")
 
-    vcf_df.to_csv(output_file)
+    vcf_df.to_csv(output_file, index = False)
 
-    dir = os.path.dirname(__file__)
-    output_path = os.path.join(dir, output_file)
-
-    print("Progress 100% - File saved at " + output_path)
+    print("Progress 100% - File saved at " + output_file)
 
 
 
