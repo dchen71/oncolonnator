@@ -9,6 +9,11 @@ class TestOncolonnator:
         """
         Test ExAC variant API using example information
         """
+        sample1 = get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
+        assert(sample1 == [4.6048996131884326e-05, 
+        	['synonymous_variant', 'non_coding_transcript_exon_variant'], 
+        	['ENSG00000100888'], 
+        	['ENST00000430710', 'ENST00000399982', 'ENST00000557364', 'ENST00000557727']])
 
     def test_get_exac_variant_failure_on_pos(self):
         """
