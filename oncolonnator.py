@@ -111,11 +111,14 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
     output_file(str) -- The directory and file name to output a csv to (default output/parsed.csv)
     """
     print("Progress 0%: Reading VCF file")
+
     # Read input or error out
     try:
       vcf_reader = vcf.Reader(open(input_vcf, 'r'))
     except:
       print("Error: Could not open input file")
+
+    # TODO - Cache results based on if same input
 
     print("Progress 10%: Parsing VCF File")
 
@@ -146,7 +149,7 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
 
     print("Progress 90%: Saving file")
 
-    vcf.to_csv(output_file)
+    vcf_df.to_csv(output_file)
 
     dir = os.path.dirname(__file__)
     output_path = os.path.join(dir, output_file)
