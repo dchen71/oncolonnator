@@ -150,10 +150,10 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
       annotations.append(get_variant_annotation(row[1], row[2], row[3], row[4]))
 
     # Update dataframe with annotations
-    vcf_df['ALLELE_FREQ'] = [i[0][0] for i in z] # Allele frequency
-    vcf_df['WORST_CONSEQUENCE'] = [i[0][1] for i in z] # Worst SNP consequence
-    vcf_df['GENES'] = [i[0][2] for i in z] # Potential gene location
-    vcf_df['TRANSCRIPTS'] = [i[0][3] for i in z] # Potential variant transcripts
+    vcf_df['ALLELE_FREQ'] = [i[0][0] for i in annotations] # Allele frequency
+    vcf_df['WORST_CONSEQUENCE'] = [i[0][1] for i in annotations] # Worst SNP consequence
+    vcf_df['GENES'] = [i[0][2] for i in annotations] # Potential gene location
+    vcf_df['TRANSCRIPTS'] = [i[0][3] for i in annotations] # Potential variant transcripts
 
     print("Progress 90%: Saving file")
 
