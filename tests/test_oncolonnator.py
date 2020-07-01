@@ -33,7 +33,8 @@ class TestOncolonnator:
         """
         Test ExAC parser returns correct information
         """
-        pass
+        snp1 = get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
+        assert(snp1 == [4.6048996131884326e-05,'non_coding_transcript_exon_variant', ['ENSG00000100888'], ['ENST00000430710', 'ENST00000399982', 'ENST00000557364', 'ENST00000557727']])
 
     def test_annotate_vcfs(self):
         """
