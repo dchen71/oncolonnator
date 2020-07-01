@@ -10,13 +10,14 @@ import os
 
 
 # TODO - Switch to argparser for inputs
-parser = argparse.ArgumentParser(description = '')
-parser.add_argument('--input', nargs='?', const='input/example.vcf', type=str, help='Path to input VCF file')
-parser.add_argument('--output', nargs='?', const='output/parsed.csv', type=str, help='foo help')
+parser = argparse.ArgumentParser(description = 'Annotate VCF file for ExAC Variant annotations and output a csv file at a given location')
+parser.add_argument('--input', const='input/example.vcf', type=str, help='Path to input VCF file')
+parser.add_argument('--output', const='output/parsed.csv', type=str, help='Path to output CSV file')
 args = parser.parse_args()
 
 
 # TODO - Switch to class based methods for VCF variants/ExAC data
+# TODO - File extension check input for vcf using os module
 
 ## goal 6 - do some unit testing
 ## goal 7 - update documentation
