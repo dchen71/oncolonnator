@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""
+oncolonnator.py
+Oncolonnator does basic parsing of VCF files. This script will parse the basic information from VCF files as well as pull annotation metadata from the Harvard ExAC API servers.
+This will take in a single vcf input and output a csv file with the chromosome, position, alleles, genes, transcripts, and consequence of mutation.
+"""
+
 # Module imports
 import vcf
 import pandas as pd
@@ -9,7 +15,7 @@ import json
 import os
 
 
-# TODO - Switch to argparser for inputs
+# Arg parser to be able to pass in inputs and outputs as parameters
 parser = argparse.ArgumentParser(description = 'Annotate VCF file for ExAC Variant annotations and output a csv file at a given location')
 parser.add_argument('--input', default='input/example_input.vcf', type=str, help='Path to input VCF file')
 parser.add_argument('--output', default='output/parsed.csv', type=str, help='Path to output CSV file')
@@ -18,10 +24,6 @@ args = parser.parse_args()
 
 # TODO - Switch to class based methods for VCF variants/ExAC data
 # TODO - File extension check input for vcf using os module
-
-## goal 6 - do some unit testing
-## goal 7 - update documentation
-## goal 8 - docker
 
 def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt = 'C'):
     """
@@ -40,14 +42,13 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
     ranked_annotations = [None, 'synonymous_variant', 'intron_variant', 'non_coding_transcript_exon_variant', '3_prime_UTR_variant', '5_prime_UTR_variant', 
     'stop_retained_variant', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'initiator_codon_variant',  'missense_variant','stop_lost', 'stop_gained']
 
-    # Type check alternate allele for looping
+    # Type check alternate allele for looping as string or list of strings
     if isinstance(alt, str):
         annotation = get_exac_variant(chromosome, position, ref, alt)
 
-        # Save the highest ranked annotation
-        ## TODO - Deal with slicing error when None
+        # TODO - Deal with slicing error when None
         if annotation[1] is not None:
-            annotation[1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[1] if i is not None)]
+            annotation[1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[1] if i is not None)] # Argmax the worst annotation rank
     elif isinstance(alt, list):
         annotation = []
         # TODO - Check if rate limited API otherwise switch to list comprehension, map or multiprocessing
@@ -59,9 +60,9 @@ def get_variant_annotation(chromosome = 14, position = 21853913, ref = 'T', alt 
         if(len(annotation) == 1):
             ## TODO - Deal with slicing error when None
             if annotation[0] is not None and annotation[0][1] is not None and annotation[0][1]:
-                annotation[0][1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[0][1] if i is not None)]
+                annotation[0][1] = ranked_annotations[max(ranked_annotations.index(i) for i in annotation[0][1] if i is not None)] # Argmax the worst annotation rank 
     else:
-        raise Exception("Alternative Allele not string or list") # Total failure on weird input
+        raise Exception("Alternative Allele not string or list") # Total failure on weird typed input
 
     return(annotation)
 
@@ -93,7 +94,7 @@ def get_exac_variant(chromosome = 14, position = 21853913, ref = 'T', alt = 'C')
 
     ## TODO - Potentially memoise and cache json based on inputs
 
-    # Get relevant information
+    # Get relevant information from ExAC
     try:
       allele_freq = data['variant']['allele_freq']
     except:
