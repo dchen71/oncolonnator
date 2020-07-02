@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/dchen71/oncolonnator/branch/master/graph/badge.svg)](https://codecov.io/gh/dchen71/oncolonnator)
+
 # Oncocolonnator
 
 ## Introduction
