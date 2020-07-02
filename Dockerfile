@@ -17,4 +17,5 @@ COPY input/example_input.vcf /usr/scripts/input
 RUN chmod o+r /usr/scripts/input/example_input.vcf
 
 # Run python entrypoint to pass in parameters
+WORKDIR "/usr/scripts"
 ENTRYPOINT ["python", "/usr/scripts/oncolonnator.py"]
