@@ -1,4 +1,4 @@
-name: Example workflow for Codecov
+name: Codecoverage on push
 on: [push]
 jobs:
   run:
@@ -23,7 +23,7 @@ jobs:
         pip install pandas
         pip install requests
         pip install argparse
-        pytest --cov=./ --cov-report=xml
+        pytest --cov-report=xml --cov-report=term
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
