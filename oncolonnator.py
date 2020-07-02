@@ -15,8 +15,18 @@ import json
 import os
 
 
-# Arg parser to be able to pass in inputs and outputs as parameters
+
 def create_parser():
+    """
+    Arg parser to be able to pass in inputs and outputs as parameters
+
+    Keyword arguments:
+    --input - String input for the location of the VCF file
+    --output - File name path to the parsed output CSV file
+
+    Return:
+    parser(ArgumentParser) - ArguemntParser object containing inputs and outputs 
+    """
     parser = argparse.ArgumentParser(description = 'Annotate VCF file for ExAC Variant annotations and output a csv file at a given location')
     parser.add_argument('--input', default='input/example_input.vcf', type=str, help='Path to input VCF file')
     parser.add_argument('--output', default='output/parsed.csv', type=str, help='Path to output CSV file')
