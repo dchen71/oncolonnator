@@ -18,11 +18,17 @@ Although `pipenv` is not necessary, it is useful for automatically managing depe
 
 Alternatively, you can build the dockerfile to run the script. Instructions for how to install docker for ubuntu 18.04 can be found here:  
 
-[Install Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) 
+[Install Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)  
 
-You can then build the container with the following command:
+You can then build the container with the following command:  
 
     docker build . -t oncolonnator
+
+### OS
+
+This was built on Ubuntu 18.04 and Windows 10. Windows may run into a Python SSL error and the following link will help:  
+
+(Windows: Python SSL certificate verify failed)[https://stackoverflow.com/questions/52870795/windows-python-ssl-certificate-verify-failed]  
 
 ## How to run
 
@@ -40,7 +46,7 @@ This is the typical vcf format used in genomic studies. More information about t
 
 ### Output
 
-This will output a csv file with the following columns:
+This will output a csv file with the following columns:  
 
 `CHROMOSOME`: The chromosome that this SNP is located on. This can be numeric or string.  
 `POSITION`: This is where in the genome that this SNP is located. This is in base pairs(bp).  
@@ -54,16 +60,16 @@ This will output a csv file with the following columns:
 `GENES`: This is the list of genes that this SNP is located on.  
 `TRANSCRIPTS`: This is the list of potential transcripts that this SNP may be a part of.  
 
-### Pipenv / Python
+### Pipenv / Python  
 
 Pipenv builds an virtual environment based in the `Pipfile` and `Pipfile.lock` in the directory. You can run the script using pipenv or manually using your own virtual environment or python distribution. A example for running it via pipenv is shown below:  
 
     pipenv run python oncolonnator.py --input <INPUT_VCF> --output <OUTPUT_CSV>
 
 `INPUT_VCF`: Path to the VCF file to parse  
-`OUTPUT_CSV`: Path and file name for the output csv 
+`OUTPUT_CSV`: Path and file name for the output csv  
 
-#### Pytest Test Suite
+#### Pytest Test Suite  
 
     pipenv run python -m tests
 
