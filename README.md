@@ -28,7 +28,7 @@ You can then build the container with the following command:
 
 This was built on Ubuntu 18.04 and Windows 10. Windows may run into a Python SSL error and the following link will help:  
 
-(Windows: Python SSL certificate verify failed)[https://stackoverflow.com/questions/52870795/windows-python-ssl-certificate-verify-failed]  
+[Windows: Python SSL certificate verify failed](https://stackoverflow.com/questions/52870795/windows-python-ssl-certificate-verify-failed)  
 
 ## How to run
 
@@ -42,7 +42,7 @@ This was built on Ubuntu 18.04 and Windows 10. Windows may run into a Python SSL
 
 This is the typical vcf format used in genomic studies. More information about that this looks like can be found here:
 
-(Variant Call Format)[https://en.wikipedia.org/wiki/Variant_Call_Format]
+[Variant Call Format](https://en.wikipedia.org/wiki/Variant_Call_Format)
 
 ### Output
 
@@ -87,8 +87,8 @@ This will run through the unit tests to ensure that the functions behave as expe
 `EXAMPLE_CSV_OUTPUT`: The name of the CSV file you want to output.  
 
 ## References  
-(Variant Call Format)[https://en.wikipedia.org/wiki/Variant_Call_Format]  
-(ExAC Rest API)[https://pic-sure.org/products/exac-restful-api]  
-(Docker)[https://www.docker.com/]  
-(Pipenv)[https://pipenv.pypa.io/en/latest/]  
-(PyVCF)[https://pyvcf.readthedocs.io/en/latest/]  
+[Variant Call Format](https://en.wikipedia.org/wiki/Variant_Call_Format)  
+[ExAC Rest API](https://pic-sure.org/products/exac-restful-api)  
+[Docker](https://www.docker.com/)  
+[Pipenv](https://pipenv.pypa.io/en/latest/)  
+[PyVCF](https://pyvcf.readthedocs.io/en/latest/)  
