@@ -4,9 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
+pytest-cov = "*"
 
 [packages]
-pytest = "==5.4.3"
 pyvcf = "==0.6.8"
 requests = "==2.24.0"
 argparse = "==1.4.0"

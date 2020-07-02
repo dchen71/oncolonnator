@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/dchen71/oncolonnator/branch/master/graph/badge.svg)](https://codecov.io/gh/dchen71/oncolonnator)
+
 # Oncocolonnator
 
 ## Introduction
@@ -71,7 +73,7 @@ Pipenv builds an virtual environment based in the `Pipfile` and `Pipfile.lock` i
 
 #### Pytest Test Suite  
 
-    pipenv run python -m tests
+    pipenv run pytest
 
 This will run through the unit tests to ensure that the functions behave as expected.  
 
