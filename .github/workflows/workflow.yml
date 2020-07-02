@@ -22,7 +22,7 @@ jobs:
         pip install pyvcf
         pip install pandas
         pip install requests
-        pip install argparser
+        pip install argparse
         pip install --upgrade setuptools
         pytest --cov=./ --cov-report=xml
     - name: Upload coverage to Codecov
