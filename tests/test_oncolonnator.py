@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '..') # Dirty fix to import cross folders
+sys.path.insert(0, '.') # Dirty fix to import cross folders
 from oncolonnator import get_exac_variant, get_variant_annotation, annotate_vcfs
 import pytest
 import os
