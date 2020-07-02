@@ -16,10 +16,11 @@ import os
 
 
 # Arg parser to be able to pass in inputs and outputs as parameters
-parser = argparse.ArgumentParser(description = 'Annotate VCF file for ExAC Variant annotations and output a csv file at a given location')
-parser.add_argument('--input', default='input/example_input.vcf', type=str, help='Path to input VCF file')
-parser.add_argument('--output', default='output/parsed.csv', type=str, help='Path to output CSV file')
-args = parser.parse_args()
+def create_parser():
+    parser = argparse.ArgumentParser(description = 'Annotate VCF file for ExAC Variant annotations and output a csv file at a given location')
+    parser.add_argument('--input', default='input/example_input.vcf', type=str, help='Path to input VCF file')
+    parser.add_argument('--output', default='output/parsed.csv', type=str, help='Path to output CSV file')
+    return(parser)
 
 
 # TODO - Switch to class based methods for VCF variants/ExAC data
@@ -165,4 +166,6 @@ def annotate_vcfs(input_vcf = None, output_file = 'output/parsed.csv'):
 
 
 if __name__ == "__main__":
+    parser = create_parser()
+    args = parser.parse_args()
     annotate_vcfs(input_vcf = args.input, output_file = args.output)
