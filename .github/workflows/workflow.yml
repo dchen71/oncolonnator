@@ -23,7 +23,7 @@ jobs:
         pip install pandas
         pip install requests
         pip install argparse
-        pytest --cov-report=xml --cov-report=term
+        pytest --cov=./ --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
